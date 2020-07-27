@@ -1,4 +1,9 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A MERN Project
+
+## Project packages
+This project have react from front side and node, mongoose, express from backside.
+
+For run this project its not necessary create a db, only needs run front side with the following instructions:
 
 ## Available Scripts
 
