@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Axios from 'axios';
 
 function App() {
+  useEffect(() => {
+    Axios.get('http://nolaborables.com.ar/api/v2/feriados/2020')
+      .then(res => {
+        const persons = res.data;
+        console.log(persons)
+        Axios.post('http://localhost:4000/api/holidays/save-holidays', persons).then(response => {
+          console.log(response);
+        })
+      });
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
