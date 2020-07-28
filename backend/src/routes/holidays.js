@@ -10,8 +10,15 @@ router.route('/').get(async (req, res) => {
 });
 
 router.post('/save-holidays', async (req, res) => {
+    const { id, dia, mes, motivo, tipo, info } = req.body;
+
     const newHolidays = new Holiday({
-        holidays: req.body
+        id: id,
+        dia: dia,
+        mes: mes,
+        motivo: motivo,
+        tipo: tipo,
+        info: info
     });
     await newHolidays.save();
     res.json({ message: 'Saved' });
@@ -20,20 +27,13 @@ router.post('/save-holidays', async (req, res) => {
 router.put('/edit-holiday', async (req, res) => {
     const { _id, dia, mes, motivo, tipo, info } = req.body;
 
-    Holiday.update(
-        { 'holidays._id': _id },
-        {
-            '$set': {
-                'holidays.$.dia': dia,
-                'holidays.$.mes': mes,
-                'holidays.$.motivo': motivo,
-                'holidays.$.tipo': tipo,
-                'holidays.$.info': info
-            }
-        },
-        { new: true },
-        function (err) {
-        });
+    await Holiday.findOneAndUpdate({_id: _id}, {
+        dia,
+        mes,
+        motivo,
+        tipo,
+        info
+    });
 
     res.json({ message: 'Updated' });
 });
