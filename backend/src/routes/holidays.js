@@ -17,10 +17,30 @@ router.post('/save-holidays', async (req, res) => {
     res.json({ message: 'Saved' });
 });
 
+router.put('/edit-holiday', async (req, res) => {
+    const { _id, dia, mes, motivo, tipo, info } = req.body;
+
+    Holiday.update(
+        { 'holidays._id': _id },
+        {
+            '$set': {
+                'holidays.$.dia': dia,
+                'holidays.$.mes': mes,
+                'holidays.$.motivo': motivo,
+                'holidays.$.tipo': tipo,
+                'holidays.$.info': info
+            }
+        },
+        { new: true },
+        function (err) {
+        });
+
+    res.json({ message: 'Updated' });
+});
+
 router.delete('/delete-holidays', async (req, res) => {
     await Holiday.findOneAndDelete();
     res.send({ message: 'Deleted' });
 });
-
 
 module.exports = router;

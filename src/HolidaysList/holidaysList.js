@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 import { Table } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import HolidayRow from './holidayRow';
 
 const HolidaysList = () => {
